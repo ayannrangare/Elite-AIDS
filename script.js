@@ -1,7 +1,3 @@
-// =======================================
-// PHYSICS FORMULA CALCULATOR
-// Part 3A
-// =======================================
 
 // ------------------------------
 // Navigation
@@ -110,11 +106,6 @@ function resetPower() {
     document.getElementById("powerTime").value = "";
     document.getElementById("powerResult").innerHTML = "";
 }
-// =======================================
-// PHYSICS FORMULA CALCULATOR
-// Part 3B
-// =======================================
-
 // ------------------------------
 // Pressure Calculator
 // P = F / A
@@ -238,11 +229,6 @@ function resetPE() {
     document.getElementById("peHeight").value = "";
     document.getElementById("peResult").innerHTML = "";
 }
-// =======================================
-// PHYSICS FORMULA CALCULATOR
-// Part 3C
-// =======================================
-
 // Gravity
 const g = 9.81;
 
