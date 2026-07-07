@@ -306,3 +306,32 @@ function resetAcceleration() {
 
 // ------------------------------
 // Projectile Motion Calculator
+function calculateProjectile() {
+    const g = 9.81;
+
+    let velocity = parseFloat(document.getElementById("projectileVelocity").value);
+    let angle = parseFloat(document.getElementById("projectileAngle").value);
+
+    if (isNaN(velocity) || isNaN(angle)) {
+        document.getElementById("projectileResult").innerHTML =
+        "Please enter valid numbers.";
+        return;
+    }
+
+    let rad = angle * Math.PI / 180;
+
+    let time = (2 * velocity * Math.sin(rad)) / g;
+    let height = (velocity * velocity * Math.pow(Math.sin(rad), 2)) / (2 * g);
+    let range = (velocity * velocity * Math.sin(2 * rad)) / g;
+
+    document.getElementById("projectileResult").innerHTML =
+        "Time of Flight = " + time.toFixed(2) + " s<br>" +
+        "Maximum Height = " + height.toFixed(2) + " m<br>" +
+        "Horizontal Range = " + range.toFixed(2) + " m";
+}
+
+function resetProjectile() {
+    document.getElementById("projectileVelocity").value = "";
+    document.getElementById("projectileAngle").value = "";
+    document.getElementById("projectileResult").innerHTML = "";
+}
