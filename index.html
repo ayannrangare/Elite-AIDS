@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Formula Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>⚛ Physics Formula Calculator</h1>
+    <p>Calculate Physics formulas instantly</p>
+</header>
+
+<nav>
+    <button onclick="showCalculator('home')">Home</button>
+    <button onclick="showCalculator('force')">Force</button>
+    <button onclick="showCalculator('work')">Work</button>
+    <button onclick="showCalculator('power')">Power</button>
+    <button onclick="showCalculator('pressure')">Pressure</button>
+    <button onclick="showCalculator('momentum')">Momentum</button>
+    <button onclick="showCalculator('ke')">Kinetic Energy</button>
+    <button onclick="showCalculator('pe')">Potential Energy</button>
+    <button onclick="showCalculator('velocity')">Velocity</button>
+    <button onclick="showCalculator('acceleration')">Acceleration</button>
+    <button onclick="showCalculator('projectile')">Projectile</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="calculator active">
+    <h2>Welcome</h2>
+
+    <p>
+        This website provides calculators for common Physics formulas.
+        Select a calculator from the navigation bar.
+    </p>
+
+    <h3>Available Calculators</h3>
+
+    <ul>
+        <li>Projectile Motion</li>
+        <li>Force (F = ma)</li>
+        <li>Work Done</li>
+        <li>Power</li>
+        <li>Pressure</li>
+        <li>Momentum</li>
+        <li>Kinetic Energy</li>
+        <li>Potential Energy</li>
+        <li>Velocity</li>
+        <li>Acceleration</li>
+    </ul>
+</section>
+
+<!-- FORCE -->
+
+<section id="force" class="calculator">
+
+<h2>Force Calculator</h2>
+
+<p><b>Formula:</b> F = m × a</p>
+
+<input type="number" id="forceMass" placeholder="Mass (kg)">
+<input type="number" id="forceAcc" placeholder="Acceleration (m/s²)">
+
+<br><br>
+
+<button onclick="calculateForce()">Calculate</button>
+<button onclick="resetForce()">Reset</button>
+
+<h3 id="forceResult"></h3>
+
+</section>
+
+<!-- WORK -->
+
+<section id="work" class="calculator">
+
+<h2>Work Done</h2>
+
+<p><b>Formula:</b> W = F × d</p>
+
+<input type="number" id="workForce" placeholder="Force (N)">
+<input type="number" id="workDistance" placeholder="Distance (m)">
+
+<br><br>
+
+<button onclick="calculateWork()">Calculate</button>
+<button onclick="resetWork()">Reset</button>
+
+<h3 id="workResult"></h3>
+
+</section>
+
+<!-- POWER -->
+
+<section id="power" class="calculator">
+
+<h2>Power Calculator</h2>
+
+<p><b>Formula:</b> P = W / t</p>
+
+<input type="number" id="powerWork" placeholder="Work (J)">
+<input type="number" id="powerTime" placeholder="Time (s)">
+
+<br><br>
+
+<button onclick="calculatePower()">Calculate</button>
+<button onclick="resetPower()">Reset</button>
+
+<h3 id="powerResult"></h3>
+
+</section>
+
+<!-- PRESSURE -->
+
+<section id="pressure" class="calculator">
+
+<h2>Pressure Calculator</h2>
+
+<p><b>Formula:</b> P = F / A</p>
+
+<input type="number" id="pressureForce" placeholder="Force (N)">
+<input type="number" id="pressureArea" placeholder="Area (m²)">
+
+<br><br>
+
+<button onclick="calculatePressure()">Calculate</button>
+<button onclick="resetPressure()">Reset</button>
+
+<h3 id="pressureResult"></h3>
+
+</section>
+
+<!-- MOMENTUM -->
+
+<section id="momentum" class="calculator">
+
+<h2>Momentum Calculator</h2>
+
+<p><b>Formula:</b> p = m × v</p>
+
+<input type="number" id="momentumMass" placeholder="Mass (kg)">
+<input type="number" id="momentumVelocity" placeholder="Velocity (m/s)">
+
+<br><br>
+
+<button onclick="calculateMomentum()">Calculate</button>
+<button onclick="resetMomentum()">Reset</button>
+
+<h3 id="momentumResult"></h3>
+
+</section>
+
+<!-- KINETIC ENERGY -->
+
+<section id="ke" class="calculator">
+
+<h2>Kinetic Energy</h2>
+
+<p><b>Formula:</b> KE = ½mv²</p>
+
+<input type="number" id="keMass" placeholder="Mass (kg)">
+<input type="number" id="keVelocity" placeholder="Velocity (m/s)">
+
+<br><br>
+
+<button onclick="calculateKE()">Calculate</button>
+<button onclick="resetKE()">Reset</button>
+
+<h3 id="keResult"></h3>
+
+</section>
+
+<!-- POTENTIAL ENERGY -->
+
+<section id="pe" class="calculator">
+
+<h2>Potential Energy</h2>
+
+<p><b>Formula:</b> PE = mgh</p>
+
+<input type="number" id="peMass" placeholder="Mass (kg)">
+<input type="number" id="peHeight" placeholder="Height (m)">
+
+<br><br>
+
+<button onclick="calculatePE()">Calculate</button>
+<button onclick="resetPE()">Reset</button>
+
+<h3 id="peResult"></h3>
+
+</section>
+
+<!-- VELOCITY -->
+
+<section id="velocity" class="calculator">
+
+<h2>Velocity Calculator</h2>
+
+<p><b>Formula:</b> v = s / t</p>
+
+<input type="number" id="velocityDistance" placeholder="Distance (m)">
+<input type="number" id="velocityTime" placeholder="Time (s)">
+
+<br><br>
+
+<button onclick="calculateVelocity()">Calculate</button>
+<button onclick="resetVelocity()">Reset</button>
+
+<h3 id="velocityResult"></h3>
+
+</section>
+
+<!-- ACCELERATION -->
+
+<section id="acceleration" class="calculator">
+
+<h2>Acceleration Calculator</h2>
+
+<p><b>Formula:</b> a = (v-u)/t</p>
+
+<input type="number" id="initialVelocity" placeholder="Initial Velocity">
+<input type="number" id="finalVelocity" placeholder="Final Velocity">
+<input type="number" id="accTime" placeholder="Time">
+
+<br><br>
+
+<button onclick="calculateAcceleration()">Calculate</button>
+<button onclick="resetAcceleration()">Reset</button>
+
+<h3 id="accelerationResult"></h3>
+
+</section>
+
+<!-- PROJECTILE -->
+
+<section id="projectile" class="calculator">
+
+<h2>Projectile Motion</h2>
+
+<p><b>Enter Initial Velocity and Angle</b></p>
+
+<input type="number" id="projectileVelocity" placeholder="Velocity (m/s)">
+<input type="number" id="projectileAngle" placeholder="Angle (°)">
+
+<br><br>
+
+<button onclick="calculateProjectile()">Calculate</button>
+<button onclick="resetProjectile()">Reset</button>
+
+<h3 id="projectileResult"></h3>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+Physics Formula Calculator <br>
+
+Made using HTML, CSS & JavaScript
+
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
