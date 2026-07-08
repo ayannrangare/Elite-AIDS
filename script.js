@@ -1,18 +1,78 @@
+// Formula calculator ids live "inside" the Menu tab, so opening any
+// of them should keep the Menu nav button highlighted.
+const formulaSectionIds = [
+    "force", "work", "power", "pressure", "momentum",
+    "ke", "pe", "velocity", "acceleration", "projectile", "calculator"
+];
 
-// ------------------------------
-// Navigation
-// ------------------------------
+function showSection(id) {
 
-function showCalculator(id) {
-
-    let pages = document.querySelectorAll(".calculator");
+    let pages = document.querySelectorAll(".page");
 
     pages.forEach(function(page) {
         page.classList.remove("active");
     });
 
     document.getElementById(id).classList.add("active");
+
+    let effectiveNavTarget = formulaSectionIds.includes(id) ? "menu" : id;
+
+    let navButtons = document.querySelectorAll(".nav-btn");
+
+    navButtons.forEach(function(btn) {
+        btn.classList.toggle("active", btn.getAttribute("data-target") === effectiveNavTarget);
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+// ------------------------------
+// Dark / Light Theme Toggle
+// ------------------------------
+
+function applyTheme(theme) {
+
+    document.documentElement.setAttribute("data-theme", theme);
+
+    let icon = document.getElementById("themeIcon");
+
+    if (icon) {
+        icon.textContent = theme === "light" ? "☀️" : "🌙";
+    }
+
+    try {
+        localStorage.setItem("physicsCalcTheme", theme);
+    } catch (e) {
+        // localStorage unavailable, theme just won't persist
+    }
+}
+
+function toggleTheme() {
+
+    let current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+    let next = current === "light" ? "dark" : "light";
+
+    applyTheme(next);
+}
+
+(function initTheme() {
+
+    let saved = null;
+
+    try {
+        saved = localStorage.getItem("physicsCalcTheme");
+    } catch (e) {
+        saved = null;
+    }
+
+    if (!saved) {
+        let prefersLight = window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches;
+        saved = prefersLight ? "light" : "dark";
+    }
+
+    applyTheme(saved);
+})();
 
 // ------------------------------
 // Force Calculator
@@ -334,4 +394,179 @@ function resetProjectile() {
     document.getElementById("projectileVelocity").value = "";
     document.getElementById("projectileAngle").value = "";
     document.getElementById("projectileResult").innerHTML = "";
+}
+
+// ------------------------------
+// Scientific Calculator
+// ------------------------------
+
+let sciExpr = "0";
+let sciAngleMode = "deg";
+let sciVars = { alpha: 0, beta: 0, theta: 0 };
+
+function renderSciDisplay() {
+    let el = document.getElementById("sciExpression");
+    if (el) {
+        el.textContent = sciExpr;
+    }
+}
+
+function updateVariables() {
+
+    let a = parseFloat(document.getElementById("varAlpha").value);
+    let b = parseFloat(document.getElementById("varBeta").value);
+    let t = parseFloat(document.getElementById("varTheta").value);
+
+    sciVars.alpha = isNaN(a) ? 0 : a;
+    sciVars.beta = isNaN(b) ? 0 : b;
+    sciVars.theta = isNaN(t) ? 0 : t;
+}
+
+function sciInsert(token) {
+
+    let isDigit = /^[0-9.]$/.test(token);
+    let isOperator = ["+", "-", "×", "÷", "^", "%"].includes(token);
+
+    if (sciExpr === "0") {
+        if (isDigit) {
+            sciExpr = token;
+        } else if (isOperator) {
+            sciExpr = "0" + token;
+        } else {
+            sciExpr = token;
+        }
+    } else {
+        sciExpr += token;
+    }
+
+    renderSciDisplay();
+}
+
+function sciClearAll() {
+    sciExpr = "0";
+    let result = document.getElementById("sciResult");
+    if (result) result.textContent = "\u00A0";
+    renderSciDisplay();
+}
+
+function sciClearEntry() {
+    sciClearAll();
+}
+
+function sciBackspace() {
+
+    if (sciExpr.length <= 1) {
+        sciExpr = "0";
+    } else {
+        sciExpr = sciExpr.slice(0, -1);
+    }
+
+    renderSciDisplay();
+}
+
+function sciToggleSign() {
+
+    if (/^-?\d+(\.\d+)?$/.test(sciExpr)) {
+        sciExpr = sciExpr.startsWith("-") ? sciExpr.slice(1) : "-" + sciExpr;
+    } else if (sciExpr.startsWith("-(") && sciExpr.endsWith(")")) {
+        sciExpr = sciExpr.slice(2, -1);
+    } else {
+        sciExpr = "-(" + sciExpr + ")";
+    }
+
+    renderSciDisplay();
+}
+
+function toggleAngleMode() {
+
+    sciAngleMode = sciAngleMode === "deg" ? "rad" : "deg";
+
+    let btn = document.getElementById("angleModeBtn");
+    if (btn) {
+        btn.textContent = sciAngleMode === "deg" ? "DEG" : "RAD";
+    }
+}
+
+function sciFactorial(n) {
+
+    n = Math.round(n);
+
+    if (n < 0) return NaN;
+
+    let result = 1;
+
+    for (let i = 2; i <= n; i++) {
+        result *= i;
+    }
+
+    return result;
+}
+
+function sciTrimNumber(n) {
+    return Math.round(n * 1e10) / 1e10;
+}
+
+function sciEvaluate() {
+
+    let resultEl = document.getElementById("sciResult");
+
+    try {
+
+        let expr = sciExpr;
+
+        // percentage: 50% -> (50/100)
+        expr = expr.replace(/(\d+(\.\d+)?)%/g, "($1/100)");
+
+        // factorial: 5! -> fact(5)
+        expr = expr.replace(/(\d+(\.\d+)?)!/g, "fact($1)");
+
+        expr = expr.split("×").join("*");
+        expr = expr.split("÷").join("/");
+        expr = expr.split("^").join("**");
+        expr = expr.split("π").join("PI");
+        expr = expr.replace(/\be\b/g, "E");
+        expr = expr.split("α").join("(" + sciVars.alpha + ")");
+        expr = expr.split("β").join("(" + sciVars.beta + ")");
+        expr = expr.split("θ").join("(" + sciVars.theta + ")");
+
+        let mode = sciAngleMode;
+        let toRad = function (x) { return mode === "deg" ? (x * Math.PI / 180) : x; };
+        let fromRad = function (x) { return mode === "deg" ? (x * 180 / Math.PI) : x; };
+
+        let fn = new Function(
+            "PI", "E", "sin", "cos", "tan", "asin", "acos", "atan",
+            "log", "ln", "sqrt", "cbrt", "fact",
+            "return (" + expr + ")"
+        );
+
+        let result = fn(
+            Math.PI,
+            Math.E,
+            function (x) { return Math.sin(toRad(x)); },
+            function (x) { return Math.cos(toRad(x)); },
+            function (x) { return Math.tan(toRad(x)); },
+            function (x) { return fromRad(Math.asin(x)); },
+            function (x) { return fromRad(Math.acos(x)); },
+            function (x) { return fromRad(Math.atan(x)); },
+            function (x) { return Math.log10(x); },
+            function (x) { return Math.log(x); },
+            function (x) { return Math.sqrt(x); },
+            function (x) { return Math.cbrt(x); },
+            function (n) { return sciFactorial(n); }
+        );
+
+        if (typeof result !== "number" || !isFinite(result)) {
+            throw new Error("invalid result");
+        }
+
+        result = sciTrimNumber(result);
+
+        resultEl.textContent = "= " + result;
+
+        sciExpr = String(result);
+        renderSciDisplay();
+
+    } catch (e) {
+        resultEl.textContent = "Error — check your expression";
+    }
 }
