@@ -10,37 +10,42 @@
 <body>
 
 <header>
-    <h1>⚛ Physics Formula Calculator</h1>
-    <p>Calculate Physics formulas instantly</p>
+    <div class="header-bar">
+        <div class="header-text">
+            <h1>⚛ Physics Formula Calculator</h1>
+            <p>Calculate Physics formulas instantly</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark or light mode">
+            <span id="themeIcon">🌙</span>
+        </button>
+    </div>
 </header>
 
-<nav>
-    <button onclick="showCalculator('home')">Home</button>
-    <button onclick="showCalculator('force')">Force</button>
-    <button onclick="showCalculator('work')">Work</button>
-    <button onclick="showCalculator('power')">Power</button>
-    <button onclick="showCalculator('pressure')">Pressure</button>
-    <button onclick="showCalculator('momentum')">Momentum</button>
-    <button onclick="showCalculator('ke')">Kinetic Energy</button>
-    <button onclick="showCalculator('pe')">Potential Energy</button>
-    <button onclick="showCalculator('velocity')">Velocity</button>
-    <button onclick="showCalculator('acceleration')">Acceleration</button>
-    <button onclick="showCalculator('projectile')">Projectile</button>
+<nav id="mainNav">
+    <button class="nav-btn active" data-target="home" onclick="showSection('home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-btn" data-target="menu" onclick="showSection('menu')"><span class="nav-icon">📋</span><span class="nav-label">Menu</span></button>
+    <button class="nav-btn" data-target="about" onclick="showSection('about')"><span class="nav-icon">ℹ️</span><span class="nav-label">About</span></button>
+    <button class="nav-btn" data-target="terms" onclick="showSection('terms')"><span class="nav-icon">📜</span><span class="nav-label">Terms</span></button>
 </nav>
 
 <main>
 
 <!-- HOME -->
 
-<section id="home" class="calculator active">
+<section id="home" class="page active">
     <h2>Welcome</h2>
 
     <p>
         This website provides calculators for common Physics formulas.
-        Select a calculator from the navigation bar.
+        Head to the <b>Menu</b> to pick a calculator, learn more in
+        <b>About</b>, or check the <b>Terms &amp; Conditions</b> before you use it.
     </p>
 
-    <h3>Available Calculators</h3>
+    <div class="home-actions">
+        <button class="home-cta" onclick="showSection('menu')">Open Formula Menu</button>
+    </div>
+
+    <h3>What's Inside</h3>
 
     <ul>
         <li>Projectile Motion</li>
@@ -56,21 +61,147 @@
     </ul>
 </section>
 
+<!-- MENU -->
+
+<section id="menu" class="page">
+
+    <h2>Formula Menu</h2>
+
+    <p>Tap a card to open that calculator.</p>
+
+    <div class="menu-grid">
+        <button class="menu-card" onclick="showSection('force')">
+            <span class="menu-card-icon">🧲</span>
+            <span class="menu-card-title">Force</span>
+            <span class="menu-card-formula">F = m × a</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('work')">
+            <span class="menu-card-icon">🛠</span>
+            <span class="menu-card-title">Work</span>
+            <span class="menu-card-formula">W = F × d</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('power')">
+            <span class="menu-card-icon">🔋</span>
+            <span class="menu-card-title">Power</span>
+            <span class="menu-card-formula">P = W / t</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('pressure')">
+            <span class="menu-card-icon">🌡</span>
+            <span class="menu-card-title">Pressure</span>
+            <span class="menu-card-formula">P = F / A</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('momentum')">
+            <span class="menu-card-icon">🎳</span>
+            <span class="menu-card-title">Momentum</span>
+            <span class="menu-card-formula">p = m × v</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('ke')">
+            <span class="menu-card-icon">🏃</span>
+            <span class="menu-card-title">Kinetic Energy</span>
+            <span class="menu-card-formula">KE = ½mv²</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('pe')">
+            <span class="menu-card-icon">⛰</span>
+            <span class="menu-card-title">Potential Energy</span>
+            <span class="menu-card-formula">PE = mgh</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('velocity')">
+            <span class="menu-card-icon">🚀</span>
+            <span class="menu-card-title">Velocity</span>
+            <span class="menu-card-formula">v = s / t</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('acceleration')">
+            <span class="menu-card-icon">📈</span>
+            <span class="menu-card-title">Acceleration</span>
+            <span class="menu-card-formula">a = (v−u)/t</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('projectile')">
+            <span class="menu-card-icon">🎯</span>
+            <span class="menu-card-title">Projectile</span>
+            <span class="menu-card-formula">Range, height, time</span>
+        </button>
+
+        <button class="menu-card" onclick="showSection('calculator')">
+            <span class="menu-card-icon">🧮</span>
+            <span class="menu-card-title">Scientific Calculator</span>
+            <span class="menu-card-formula">sin, cos, log, √, α β θ…</span>
+        </button>
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="page">
+
+    <h2>About</h2>
+
+    <p>
+        Physics Formula Calculator is a lightweight tool built to help students
+        check common mechanics formulas quickly, without digging through a textbook.
+    </p>
+
+    <p>
+        Pick a formula from the Menu, enter your values, and get an instant result.
+        Everything runs directly in your browser — no data is sent anywhere.
+    </p>
+
+    <p>
+        Built with plain HTML, CSS and JavaScript, and designed to work smoothly
+        on both desktop and mobile devices.
+    </p>
+
+    <h3>Made By Elite-AIDS</h3>
+
+</section>
+
+<!-- TERMS AND CONDITIONS -->
+
+<section id="terms" class="page">
+
+    <h2>Terms &amp; Conditions</h2>
+
+    <p>By using this website, you agree to the following:</p>
+
+    <ul class="terms-list">
+        <li><b>Educational use only.</b> Results are provided for learning and reference purposes and should not be relied on for professional, engineering, or safety-critical work.</li>
+        <li><b>No guarantee of accuracy.</b> While calculations follow standard physics formulas, we do not guarantee results are error-free.</li>
+        <li><b>No liability.</b> We are not responsible for any loss, damage, or decision made based on results from this calculator.</li>
+        <li><b>No data collection.</b> Values you enter stay in your browser and are not stored or transmitted.</li>
+        <li><b>Fair use.</b> Do not misuse, copy, or redistribute this tool without permission.</li>
+        <li><b>Changes.</b> These terms may be updated at any time without prior notice.</li>
+    </ul>
+
+</section>
+
 <!-- FORCE -->
 
-<section id="force" class="calculator">
+<section id="force" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Force Calculator</h2>
 
 <p><b>Formula:</b> F = m × a</p>
 
+<div class="input-grid">
 <input type="number" id="forceMass" placeholder="Mass (kg)">
 <input type="number" id="forceAcc" placeholder="Acceleration (m/s²)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateForce()">Calculate</button>
-<button onclick="resetForce()">Reset</button>
+<button class="secondary" onclick="resetForce()">Reset</button>
+</div>
 
 <h3 id="forceResult"></h3>
 
@@ -78,19 +209,23 @@
 
 <!-- WORK -->
 
-<section id="work" class="calculator">
+<section id="work" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Work Done</h2>
 
 <p><b>Formula:</b> W = F × d</p>
 
+<div class="input-grid">
 <input type="number" id="workForce" placeholder="Force (N)">
 <input type="number" id="workDistance" placeholder="Distance (m)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateWork()">Calculate</button>
-<button onclick="resetWork()">Reset</button>
+<button class="secondary" onclick="resetWork()">Reset</button>
+</div>
 
 <h3 id="workResult"></h3>
 
@@ -98,19 +233,23 @@
 
 <!-- POWER -->
 
-<section id="power" class="calculator">
+<section id="power" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Power Calculator</h2>
 
 <p><b>Formula:</b> P = W / t</p>
 
+<div class="input-grid">
 <input type="number" id="powerWork" placeholder="Work (J)">
 <input type="number" id="powerTime" placeholder="Time (s)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculatePower()">Calculate</button>
-<button onclick="resetPower()">Reset</button>
+<button class="secondary" onclick="resetPower()">Reset</button>
+</div>
 
 <h3 id="powerResult"></h3>
 
@@ -118,19 +257,23 @@
 
 <!-- PRESSURE -->
 
-<section id="pressure" class="calculator">
+<section id="pressure" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Pressure Calculator</h2>
 
 <p><b>Formula:</b> P = F / A</p>
 
+<div class="input-grid">
 <input type="number" id="pressureForce" placeholder="Force (N)">
 <input type="number" id="pressureArea" placeholder="Area (m²)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculatePressure()">Calculate</button>
-<button onclick="resetPressure()">Reset</button>
+<button class="secondary" onclick="resetPressure()">Reset</button>
+</div>
 
 <h3 id="pressureResult"></h3>
 
@@ -138,19 +281,23 @@
 
 <!-- MOMENTUM -->
 
-<section id="momentum" class="calculator">
+<section id="momentum" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Momentum Calculator</h2>
 
 <p><b>Formula:</b> p = m × v</p>
 
+<div class="input-grid">
 <input type="number" id="momentumMass" placeholder="Mass (kg)">
 <input type="number" id="momentumVelocity" placeholder="Velocity (m/s)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateMomentum()">Calculate</button>
-<button onclick="resetMomentum()">Reset</button>
+<button class="secondary" onclick="resetMomentum()">Reset</button>
+</div>
 
 <h3 id="momentumResult"></h3>
 
@@ -158,19 +305,23 @@
 
 <!-- KINETIC ENERGY -->
 
-<section id="ke" class="calculator">
+<section id="ke" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Kinetic Energy</h2>
 
 <p><b>Formula:</b> KE = ½mv²</p>
 
+<div class="input-grid">
 <input type="number" id="keMass" placeholder="Mass (kg)">
 <input type="number" id="keVelocity" placeholder="Velocity (m/s)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateKE()">Calculate</button>
-<button onclick="resetKE()">Reset</button>
+<button class="secondary" onclick="resetKE()">Reset</button>
+</div>
 
 <h3 id="keResult"></h3>
 
@@ -178,19 +329,23 @@
 
 <!-- POTENTIAL ENERGY -->
 
-<section id="pe" class="calculator">
+<section id="pe" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Potential Energy</h2>
 
 <p><b>Formula:</b> PE = mgh</p>
 
+<div class="input-grid">
 <input type="number" id="peMass" placeholder="Mass (kg)">
 <input type="number" id="peHeight" placeholder="Height (m)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculatePE()">Calculate</button>
-<button onclick="resetPE()">Reset</button>
+<button class="secondary" onclick="resetPE()">Reset</button>
+</div>
 
 <h3 id="peResult"></h3>
 
@@ -198,19 +353,23 @@
 
 <!-- VELOCITY -->
 
-<section id="velocity" class="calculator">
+<section id="velocity" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Velocity Calculator</h2>
 
 <p><b>Formula:</b> v = s / t</p>
 
+<div class="input-grid">
 <input type="number" id="velocityDistance" placeholder="Distance (m)">
 <input type="number" id="velocityTime" placeholder="Time (s)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateVelocity()">Calculate</button>
-<button onclick="resetVelocity()">Reset</button>
+<button class="secondary" onclick="resetVelocity()">Reset</button>
+</div>
 
 <h3 id="velocityResult"></h3>
 
@@ -218,20 +377,24 @@
 
 <!-- ACCELERATION -->
 
-<section id="acceleration" class="calculator">
+<section id="acceleration" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Acceleration Calculator</h2>
 
 <p><b>Formula:</b> a = (v-u)/t</p>
 
+<div class="input-grid input-grid-3">
 <input type="number" id="initialVelocity" placeholder="Initial Velocity">
 <input type="number" id="finalVelocity" placeholder="Final Velocity">
 <input type="number" id="accTime" placeholder="Time">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateAcceleration()">Calculate</button>
-<button onclick="resetAcceleration()">Reset</button>
+<button class="secondary" onclick="resetAcceleration()">Reset</button>
+</div>
 
 <h3 id="accelerationResult"></h3>
 
@@ -239,21 +402,108 @@
 
 <!-- PROJECTILE -->
 
-<section id="projectile" class="calculator">
+<section id="projectile" class="page calculator">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
 
 <h2>Projectile Motion</h2>
 
 <p><b>Enter Initial Velocity and Angle</b></p>
 
+<div class="input-grid">
 <input type="number" id="projectileVelocity" placeholder="Velocity (m/s)">
 <input type="number" id="projectileAngle" placeholder="Angle (°)">
+</div>
 
-<br><br>
-
+<div class="btn-row">
 <button onclick="calculateProjectile()">Calculate</button>
-<button onclick="resetProjectile()">Reset</button>
+<button class="secondary" onclick="resetProjectile()">Reset</button>
+</div>
 
 <h3 id="projectileResult"></h3>
+
+</section>
+
+<!-- SCIENTIFIC CALCULATOR -->
+
+<section id="calculator" class="page sci-page">
+
+<button class="back-btn" onclick="showSection('menu')">← Back to Menu</button>
+
+<h2>Scientific Calculator</h2>
+
+<div class="sci-calc">
+
+    <div class="sci-vars">
+        <label>α <input type="number" id="varAlpha" value="0" oninput="updateVariables()"></label>
+        <label>β <input type="number" id="varBeta" value="0" oninput="updateVariables()"></label>
+        <label>θ <input type="number" id="varTheta" value="0" oninput="updateVariables()"></label>
+    </div>
+
+    <div class="sci-display">
+        <div id="sciExpression" class="sci-expression">0</div>
+        <div id="sciResult" class="sci-result">&nbsp;</div>
+    </div>
+
+    <div class="sci-toprow">
+        <button class="sci-btn sci-mode" id="angleModeBtn" onclick="toggleAngleMode()">DEG</button>
+        <button class="sci-btn sci-mem" onclick="sciClearAll()">AC</button>
+        <button class="sci-btn sci-mem" onclick="sciClearEntry()">C</button>
+        <button class="sci-btn sci-mem" onclick="sciBackspace()">⌫</button>
+    </div>
+
+    <div class="sci-grid">
+
+        <button class="sci-btn sci-var" onclick="sciInsert('α')">α</button>
+        <button class="sci-btn sci-var" onclick="sciInsert('β')">β</button>
+        <button class="sci-btn sci-var" onclick="sciInsert('θ')">θ</button>
+        <button class="sci-btn" onclick="sciInsert('(')">(</button>
+
+        <button class="sci-btn" onclick="sciInsert(')')">)</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('π')">π</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('e')">e</button>
+        <button class="sci-btn sci-op" onclick="sciInsert('%')">%</button>
+
+        <button class="sci-btn sci-fn" onclick="sciInsert('sin(')">sin</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('cos(')">cos</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('tan(')">tan</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('sqrt(')">√</button>
+
+        <button class="sci-btn sci-fn" onclick="sciInsert('asin(')">sin⁻¹</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('acos(')">cos⁻¹</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('atan(')">tan⁻¹</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('cbrt(')">∛</button>
+
+        <button class="sci-btn sci-fn" onclick="sciInsert('log(')">log</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('ln(')">ln</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('^')">xʸ</button>
+        <button class="sci-btn sci-fn" onclick="sciInsert('!')">n!</button>
+
+        <button class="sci-btn sci-num" onclick="sciInsert('7')">7</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('8')">8</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('9')">9</button>
+        <button class="sci-btn sci-op" onclick="sciInsert('÷')">÷</button>
+
+        <button class="sci-btn sci-num" onclick="sciInsert('4')">4</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('5')">5</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('6')">6</button>
+        <button class="sci-btn sci-op" onclick="sciInsert('×')">×</button>
+
+        <button class="sci-btn sci-num" onclick="sciInsert('1')">1</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('2')">2</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('3')">3</button>
+        <button class="sci-btn sci-op" onclick="sciInsert('-')">−</button>
+
+        <button class="sci-btn sci-num" onclick="sciInsert('0')">0</button>
+        <button class="sci-btn sci-num" onclick="sciInsert('.')">.</button>
+        <button class="sci-btn sci-op" onclick="sciToggleSign()">+/−</button>
+        <button class="sci-btn sci-op" onclick="sciInsert('+')">+</button>
+
+    </div>
+
+    <button class="sci-eq" onclick="sciEvaluate()">=</button>
+
+</div>
 
 </section>
 
@@ -265,7 +515,7 @@
 
 Physics Formula Calculator <br>
 
-Made using HTML, CSS & JavaScript
+Made By Elite-AIDS
 
 </p>
 
